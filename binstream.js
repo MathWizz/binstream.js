@@ -1,4 +1,4 @@
-var stream = {
+var Streams = {
     extend: function (base, ex) {
         for (var key in ex) {
             base[key] = ex[key];
@@ -6,12 +6,12 @@ var stream = {
     }
 }
 
-stream.ReadStream = function (arraybuffer) {
+Streams.ReadStream = function (arraybuffer) {
     this.buffer = arraybuffer;
     this.index = 0;
     this.uint8array = new Uint8Array(this.buffer);
 };
-stream.extend(nbt.ReadStream.prototype, {
+Streams.extend(Streams.ReadStream.prototype, {
     set: function (index) {
         this.index = index;
     },
@@ -75,12 +75,12 @@ stream.extend(nbt.ReadStream.prototype, {
     }
 });
 
-stream.WriteStream = function () {
+Streams.WriteStream = function () {
     this.allocated = 1024;
     this.index = 0;
     this.array = new Uint8Array(this.allocated);
 };
-stream.extend(sb.WriteStream.prototype, {
+Streams.extend(Streams.WriteStream.prototype, {
     allocate: function (size) {
         if (size + this.index < this.allocated) {
             return;
